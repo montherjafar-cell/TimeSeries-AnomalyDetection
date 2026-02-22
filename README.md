@@ -4,7 +4,7 @@
 
 The goal of this project was to detect injected anomalies in time series data representing memory usage. Data was collected through running several burner IO tests, and monitoring Proportional Set Size (PSS) among other metrics to detect spikes in memory usage.
 
-## Data Acquistion:
+## Data Acquisition:
 To collect data for this evaluation, multiple IO burner tests were run on a Linux shell with differing parameters, to simulate ordinary fluctuations in memory workload. To do this, parameters were varied slightly between runs:
 
 -IO Size: Varied between 75-125 MBs
@@ -15,13 +15,13 @@ To collect data for this evaluation, multiple IO burner tests were run on a Linu
 
 -Sleep: Sleep time between processes was varied between 700 and 1750 milliseconds per process 
 
-To simulate memory usage spikes, IO tests were ran with modified parameters to create artifical anomalies in the data. Modified parameters include:
+To simulate memory usage spikes, IO tests were ran with modified parameters to create artificial anomalies in the data. Modified parameters include:
 
 -Increased process count (45-50)
 
 -Increased thread count (20-40)
 
--Lowered sleep values betwen processes (15-50 ms)
+-Lowered sleep values between processes (15-50 ms)
 
 
 Performance was monitored and recorded through [prmon](https://github.com/HSF/prmon/tree/main) with a interval of one second per snapshot, and final performance data was collected as a time metric after each run. A total of 1,115 datapoints of ordinary runs were collected, and ~80 datapoints worth of artificial anomalies were collected as three separate modified-parameter runs. All the runs were then concatenated together, with anomalies injected between them, to form the final dataset.
@@ -33,7 +33,7 @@ Performance was monitored and recorded through [prmon](https://github.com/HSF/pr
 
 **Isolation forest**: My second approach was to use an isolation forest algorithm, which randomly partitions data into trees. The advantage of an isolation forest algorithm is that it doesn't necessarily have to fit or build distributions on the data. However, it was ineffective, as it fails to consider the order of data points as it isolates them, which means that it isn't able to "see" spikes in ordered time series data, and thus couldn't distinguish outliers. Moreover, It was also skewed by the lack of variance in values in the training dataset, which means that most values that were ordinary yet unseen were flagged as anomalies
 
-**Local Outlier Factor**: To address the limitations of the first two models, which rely on detecting global anomalies and learning the general shape of the data, I changed my approach towards finding a contextual/local anomaly detection model, as anomalies were seen as massive spikes, that deviate heavily from points around them. The model would have to capture a local distribution of the points, and then select the points that deviate largely from the ones around them. I first considered using a rolling Z-score algorithm, which calculates how many standard deviations a point is from a window of points around it. However, the distribution of the window would be prone to skewing by outliers. I decided finally to use the Local Outlier Factor algorithm, which compares te density of each point to the density of its k-nearest neighbors. Since this is a distance based model, rather than distribution, it is less prone to outliers than rolling Z-score, and is better at catching spikes in data values. After multiple tests and hyperparameter tuning, I found 550 to be the lowest suitable number of k-nearest neighbors that would successfully detect the anomalies. The model's drawbacks will be mentioned in the next section.
+**Local Outlier Factor**: To address the limitations of the first two models, which rely on detecting global anomalies and learning the general shape of the data, I changed my approach towards finding a contextual/local anomaly detection model, as anomalies were seen as massive spikes, that deviate heavily from points around them. The model would have to capture a local distribution of the points, and then select the points that deviate largely from the ones around them. I first considered using a rolling Z-score algorithm, which calculates how many standard deviations a point is from a window of points around it. However, the distribution of the window would be prone to skewing by outliers. I decided finally to use the Local Outlier Factor algorithm, which compares the density of each point to the density of its k-nearest neighbors. Since this is a distance based model, rather than distribution, it is less prone to outliers than rolling Z-score, and is better at catching spikes in data values. After multiple tests and hyperparameter tuning, I found 550 to be the lowest suitable number of k-nearest neighbors that would successfully detect the anomalies. The model's drawbacks will be mentioned in the next section.
 
 
 ## Discussion and results
@@ -41,6 +41,6 @@ The model was able to detect all the injected anomalies in the training dataset.
 
 
 ## AI Disclosure and Use
-AI was used in this evaluation task for syntax retrieval, debugging, and inital exploration. Core architectural decisions, data pipelines, code writing and parameter tuning were conducted by me. Models used include Google Gemini and ChatGPT.
+AI was used in this evaluation task for syntax retrieval, debugging, and initial exploration. Core architectural decisions, data pipelines, code writing and parameter tuning were conducted by me. Models used include Google Gemini and ChatGPT.
 
 
