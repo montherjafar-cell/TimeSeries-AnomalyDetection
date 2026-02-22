@@ -41,6 +41,6 @@ The model was able to detect all the injected anomalies in the training dataset.
 
 
 ## AI Disclosure and Use
-AI was used in this evaluation task for syntax retrieval, debugging, and inital exploration. Core architectural decisions, data pipelines, code writing and parameter tuning were conducted by me.
+AI was used in this evaluation task for syntax retrieval, debugging, and inital exploration. Core architectural decisions, data pipelines, code writing and parameter tuning were conducted by me. Models used include Google Gemini and ChatGPT.
 
 
