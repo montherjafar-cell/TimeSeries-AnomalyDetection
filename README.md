@@ -38,6 +38,6 @@ The model was able to detect all the injected anomalies in the training dataset.
 
 
 ## AI Disclosure and Use
-AI was used in this evaluation purely as a tool for information retrieval in the exploration phase and debugging. All the work done, including writing code, designing data pipelines, architectural decisions and research into different models and technique was done by me without AI influence. AI was just used to help in exploration and getting up to speed, and for debugging and fixing code. Models used include Google Gemini and ChatGPT
+AI was used in this evaluation purely as a tool for information retrieval in the exploration phase and debugging. All the work done, including writing code, designing data pipelines, architectural decisions and research into different models and technique was done by me without AI influence. AI was just used to help in initial exploration and getting up to speed, and for debugging and fixing code. Models used include Google Gemini and ChatGPT
 
 
